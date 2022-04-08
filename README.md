@@ -1,0 +1,3 @@
+# 2022-1-OSSP2-PLACEHOLDER-8조
+
+### 2022년 1학기 공개sw프로젝트_02 8조 PLACEHOLDER
