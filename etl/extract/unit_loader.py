@@ -2,6 +2,7 @@ import functools
 import os
 import pickle
 from typing import Callable
+from typing import TypeVar
 
 from chicken_dinner.models.match import Match
 from chicken_dinner.models.telemetry import Telemetry
@@ -27,6 +28,7 @@ def _save_obj_as_pickle(pickle_path, obj):
     return obj
 
 
+R = TypeVar('R')
 def pickle_loader(_name: str):
     """[Decorator] save result as pickle.
     if pickle exists, load it or run function and save.
@@ -35,19 +37,18 @@ def pickle_loader(_name: str):
     @_name: name of pickle file
     """
 
-    def wrapper(func: Callable) -> Callable:
+    def wrapper(func: Callable[..., R]) -> Callable[..., R]:
         @functools.wraps(func)
-        def inside(*args, **kwargs):
-            _mid = kwargs.get('match_id')
+        def inside(*args, _mid=None):
             if _mid is None:
                 return func(*args)
 
-            pickle_path = os.join(config.CACHE_PATH, _mid, _name)
+            pickle_path = os.path.join(config.CACHE_PATH, _mid, _name)
             if _is_pickle_exists(pickle_path):
-                obj = _open_obj_from_pickle(_mid, _name)
+                obj = _open_obj_from_pickle(pickle_path)
             else:
                 print(f"[LOG]\tNo pickle '{_name}' in {_mid}")
-                obj = _save_obj_as_pickle(_mid, _name, func(*args))
+                obj = _save_obj_as_pickle(pickle_path, func(*args))
             return obj
 
         return inside
@@ -56,10 +57,10 @@ def pickle_loader(_name: str):
 
 
 @pickle_loader('match.pickle')
-def get_match(pubg: PUBG, match_id: str) -> Match:
+def match(pubg: PUBG, match_id: str) -> Match:
     return pubg.match(match_id)
 
 
 @pickle_loader('telemetry.pickle')
-def get_telemetry(match: Match) -> Telemetry:
+def telemetry(match: Match) -> Telemetry:
     return match.get_telemetry()
