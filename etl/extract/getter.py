@@ -28,13 +28,11 @@ def _save_obj_as_pickle(pickle_path, obj):
 
 
 def pickle_loader(_name: str):
-    """
-    [Decorator] save result as pickle
-    if pickle exists load else run func
-    param:
-    _name - file name
-    _mid - match id
-    *args - function arguments 
+    """[Decorator] save result as pickle.
+    if pickle exists, load it or run function and save.
+    match_id is needed as a function arg.
+
+    @_name: name of pickle file
     """
 
     def wrapper(func: Callable) -> Callable:
