@@ -1,8 +1,7 @@
 import functools
 import os
 import pickle
-from typing import Callable
-from typing import TypeVar
+from typing import Callable, TypeVar
 
 from chicken_dinner.models.match import Match
 from chicken_dinner.models.telemetry import Telemetry
@@ -29,6 +28,8 @@ def _save_obj_as_pickle(pickle_path, obj):
 
 
 R = TypeVar('R')
+
+
 def pickle_loader(_name: str):
     """[Decorator] save result as pickle.
     if pickle exists, load it or run function and save.
