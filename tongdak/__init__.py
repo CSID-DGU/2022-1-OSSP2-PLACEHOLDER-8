@@ -31,4 +31,7 @@ def create_app(test_config=None):
         except:
             return 'error'
     
+    from . import circle_match
+    app.register_blueprint(circle_match.bp)
+    
     return app
