@@ -194,7 +194,8 @@ def search_by_circle(id):
             axis_key_pos = {axis: [pos[axis] for pos in positions] for axis in ['x', 'y']}
             plt.plot(*axis_key_pos.values())
 
-    client = MongoClient('mongodb://localhost:27017/')
+    client = MongoClient('mongodb://210.94.222.124:27017/')
+    print(client)
     db = client['match_db']  # test-db라는 이름의 데이터베이스에 접속
     collection = db['circle_match']
 

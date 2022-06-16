@@ -22,11 +22,9 @@ def create_app(test_config=None):
         return 'Hello, World!'
 
     from . import position
-
     app.register_blueprint(position.bp)
 
     from . import circle_match
-
     app.register_blueprint(circle_match.bp)
 
     return app

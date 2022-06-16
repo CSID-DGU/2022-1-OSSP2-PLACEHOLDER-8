@@ -1,9 +1,10 @@
-import functools
+import os
 
 import click
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 from flask.cli import with_appcontext
 from scipy import interpolate
+from werkzeug.utils import secure_filename
 
 bp = Blueprint('position', __name__, url_prefix='/position')
 
@@ -27,12 +28,10 @@ output: value
 """
 
 
-@bp.route('/<string:values_str>', methods=('GET', 'POST'))
-def value(values_str: str):
+@bp.route('/<string:map_id>/<string:coord>', methods=('GET', 'POST'))
+def value(map_id: str, coord: str):
     try:
-        values = list(map(float, values_str.split(';')))
-        assert (values[0], float)
-        assert (values[1], float)
+        values = list(map(float, coord.split(';')))
         return str(values)
     except:
         return "Invalid input: input url as 'float;float' format."
@@ -45,10 +44,14 @@ def value(values_str: str):
 
 
 # TODO: upload heatmap
-@bp.route('/heatmap', methods=('POST', 'PUT'))
+@bp.route('/functions', methods=('POST',))
 def heatmap():
-    try:
-        pass
-    except:
-        return 'Fail'
+    if request.method == 'POST':
+        try:
+            f = request.files['file']
+            
+            f.save(os.path.join('instance', secure_filename(f.filename)))
+            return 'file uploaded successfully'    
+        except:
+            return 'Fail'
     return 'Success'

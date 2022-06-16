@@ -11,4 +11,4 @@ KD_MAP_SIGMA_AMP = 5000.0
 
 
 # SERVER
-SERVER_URL = 'https://google.com'
+SERVER_URL = 'http://127.0.0.1:5000'
