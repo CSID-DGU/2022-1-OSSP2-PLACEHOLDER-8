@@ -141,8 +141,8 @@ def calculate_heatmap(match_data_collection: dict[str, list[MatchData]]):
     kd_func_collection = get_kd_func(kd_mgset_collection)
 
     # DEBUG
-    for map_id, kd_func in kd_func_collection.items():
-        print(map_id, kd_func(400000, 400000))
+    # for map_id, kd_func in kd_func_collection.items():
+    #     print(map_id, kd_func(400000, 400000))
 
 
     return kd_func_collection
