@@ -1,4 +1,5 @@
 import os
+from cv2 import circle
 from flask import Flask
 
 
@@ -30,5 +31,8 @@ def create_app(test_config=None):
             return str(x * y)
         except:
             return 'error'
+    
+    from . import circle_match
+    app.register_blueprint(circle_match.bp)
     
     return app
