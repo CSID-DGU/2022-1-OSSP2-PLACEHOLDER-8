@@ -1,9 +1,7 @@
 import functools
 
 import click
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 from flask.cli import with_appcontext
 from scipy import interpolate
 
@@ -21,21 +19,23 @@ def test():
 def asdf():
     pass
 
-'''
+
+"""
 input: posx, posy
 logic: call interpolation function
 output: value
-'''
+"""
+
+
 @bp.route('/<string:values_str>', methods=('GET', 'POST'))
 def value(values_str: str):
     try:
         values = list(map(float, values_str.split(';')))
-        assert(values[0], float)
-        assert(values[1], float)
+        assert (values[0], float)
+        assert (values[1], float)
         return str(values)
     except:
-        return 'Invalid input: input url as \'float;float\' format.'
-
+        return "Invalid input: input url as 'float;float' format."
 
 
 # update
