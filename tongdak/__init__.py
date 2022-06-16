@@ -1,5 +1,4 @@
 import os
-from cv2 import circle
 from flask import Flask
 
 

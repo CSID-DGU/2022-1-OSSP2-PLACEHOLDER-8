@@ -32,15 +32,10 @@ from difflib import Match
 bp = Blueprint('match', __name__, url_prefix='/match')
 
 
-# TODO: Delete after all work.
-@bp.route('/', methods=('GET', 'POST'))
-def test():
-    return 'I am potato'
-
 
 @bp.route('/data/<string:id>')
 
-def main(id):
+def search_by_circle(id):
 
     def pubg():
         # api_key = None
@@ -268,6 +263,7 @@ def main(id):
             plt.gca().add_patch(patches.Circle((search_circle_list[k][1]/map_x,search_circle_list[k][2]/map_y), search_circle_list[k][4]/map_x, color = color[idx[1]], fill = False))#첫번째 매치 원
             k+=1
 
+        plt.title(search_match_id)
         plt.imshow(img_np)
 
         buf = BytesIO()
