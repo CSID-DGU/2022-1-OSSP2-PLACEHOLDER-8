@@ -14,3 +14,4 @@ if __name__ == '__main__':
     
     print(len(matches))
     result = batch_loader.batch_load(pubg, matches[:10])
+    print(result.keys())
