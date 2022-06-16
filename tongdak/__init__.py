@@ -22,14 +22,8 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
     
-    @app.route('/position/<string:pair>')
-    def test(pair):
-        try:
-            values = pair.split(';')
-            x, y = float(values[0]), float(values[1])
-            return str(x * y)
-        except:
-            return 'error'
+    from . import position
+    app.register_blueprint(position.bp)
     
     from . import circle_match
     app.register_blueprint(circle_match.bp)
