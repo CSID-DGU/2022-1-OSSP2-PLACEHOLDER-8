@@ -1,20 +1,11 @@
-import datetime
-import functools
-import os
-import random
-from re import template
-
-import matplotlib
-from django.shortcuts import render
-from flask import Flask, jsonify, send_file
-
-matplotlib.use('Agg')
 import base64
+import datetime
+import random
 import urllib.request as req
 from difflib import Match
 from io import BytesIO, StringIO
 
-import click
+import matplotlib
 import matplotlib.patches as patches  # 원 추가
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,13 +13,11 @@ import PIL.Image
 from chicken_dinner.constants import COLORS
 from chicken_dinner.models.telemetry import Telemetry
 from chicken_dinner.pubgapi import PUBG
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
-from flask.cli import with_appcontext
-from matplotlib.figure import Figure
+from flask import (Blueprint, flash, g, redirect, render_template, request,
+                   session, url_for)
 from pymongo import MongoClient
-from pymongo.cursor import CursorType
-from scipy import interpolate
 
+matplotlib.use('Agg')
 bp = Blueprint('match', __name__, url_prefix='/match')
 
 
