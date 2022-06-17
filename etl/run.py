@@ -7,6 +7,7 @@ from chicken_dinner.pubgapi import PUBG
 
 from etl.extract import batch_loader
 from etl.transfrom import kd_heatmap
+from etl.load import loader
 from etl import util
 
 
@@ -17,13 +18,13 @@ def main():
     # Extraction
     matches = batch_loader.samples(pubg)
     print(len(matches))
-    match_data_collection = batch_loader.batch_load(pubg, matches)
+    match_data_collection = batch_loader.batch_load(pubg, matches[:50])
 
     # Transformation
     kd_func_collection = kd_heatmap.calculate_heatmap(match_data_collection)
 
     # Load
-    pass
+    loader.upload_object(kd_func_collection)
 
 if __name__ == '__main__':
     main()

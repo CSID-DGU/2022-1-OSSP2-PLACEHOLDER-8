@@ -1,6 +1,7 @@
 from math import isclose
 from typing import Callable, NewType
 
+import matplotlib.pyplot as plt
 import numpy as np
 from chicken_dinner.models.match import Match
 from chicken_dinner.models.telemetry import Telemetry, TelemetryObject
@@ -134,8 +135,13 @@ def calculate_heatmap(match_data_collection: dict[str, list[MatchData]]):
     kd_mgset_collection = get_kd_mgset(kill_loc_collection, dist_mgset_collection)
 
     # DEBUG
-    # for map_id, mgset in kd_mgset_collection.items():
-    #     print(map_id, mgset[2].shape)
+    for map_id, mgset in kd_mgset_collection.items():
+        print(map_id, mgset[2].shape)
+        util.plot_map(map_id, 'High')
+        plt.pcolormesh(*mgset, cmap='RdBu', alpha=0.5)
+        plt.colorbar()
+        plt.show()
+        
 
     # kd-map into function using interpolation
     kd_func_collection = get_kd_func(kd_mgset_collection)
